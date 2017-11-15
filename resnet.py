@@ -344,10 +344,18 @@ class ResNet:
                         _init_.parameters += [weight5_3_3, biases5_3_3, offset5_3_3, scale5_3_3]
                         conv5 = max_pool(conv5_3, k_size=(2, 2), stride=(2, 2))  # [7, 7, 2048]
             # conv5
+<<<<<<< HEAD
             print(conv5)
             # average_pool = ave_pool(conv5, k_size=(7, 7))
             # print(average_pool)
             ave_pooling = tf.squeeze(conv5, [1, 2])
+=======
+            ave_pool = tf.squeeze(conv5, [1, 2])
+            # ave_pool = tf.clip_by_value(ave_pool, -1, 1)
+            # k = conv5.get_shape()[1]
+            # ave_pool = max_pool(conv5, k_size=(int(k), int(k)), stride=(1, 1))  # [7, 7, 2048][1, 1, 2048]
+            # ave_pool = tf.squeeze(ave_pool, [1, 2])  # in [batch_size, 1, 1, 2048]  out: [batch_size, 2048]
+>>>>>>> d4a73fb6e399cca8b0646e8dd37f790d5888d3f0
             with tf.variable_scope('fc'):
                 weight_fc2 = tf.get_variable('weight', [2048, _init_.classes_numbers])
                 biases_fc2 = tf.get_variable('biases', [_init_.classes_numbers])
